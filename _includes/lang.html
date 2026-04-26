@@ -1,0 +1,14 @@
+{% comment %}
+  Detect appearance language and return it through variable "lang".
+  With jekyll-polyglot active, prefer site.active_lang so UI strings
+  (sidebar, footer, "previous/next", etc.) follow the visitor's chosen language.
+{% endcomment %}
+{% if site.data.locales[site.active_lang] %}
+  {% assign lang = site.active_lang %}
+{% elsif site.data.locales[page.lang] %}
+  {% assign lang = page.lang %}
+{% elsif site.data.locales[site.lang] %}
+  {% assign lang = site.lang %}
+{% else %}
+  {% assign lang = 'en' %}
+{% endif %}

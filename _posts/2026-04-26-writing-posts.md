@@ -5,6 +5,8 @@ categories: [Meta, Tutorials]
 tags: [jekyll, chirpy, markdown, latex]
 math: true
 mermaid: true
+lang: en
+permalink: /posts/writing-posts/
 ---
 
 A short reference for myself (and anyone else writing here) on the syntax this Chirpy-themed blog supports. Add this front-matter to your post:
