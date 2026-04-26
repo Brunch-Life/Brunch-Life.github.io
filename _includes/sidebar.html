@@ -77,8 +77,16 @@
         <span style="font-weight:600;font-size:0.9rem;">中</span>
       </a>
     {% else %}
+      {%- comment -%}
+        On the zh-CN side, page.url already includes the "/zh-CN" prefix
+        (polyglot rewrites it during build). Strip the prefix to get the
+        canonical EN path, then prepend site.url to get an absolute URL
+        that polyglot's relativize_urls step won't touch.
+      {%- endcomment -%}
       {% if use_smart %}
-        {% capture lang_target %}{{ site.url }}{{ page.url }}{% endcapture %}
+        {% capture stripped %}{{ page.url | remove_first: '/zh-CN' }}{% endcapture %}
+        {% if stripped == '' %}{% assign stripped = '/' %}{% endif %}
+        {% capture lang_target %}{{ site.url }}{{ stripped }}{% endcapture %}
       {% else %}
         {% capture lang_target %}{{ site.url }}/{% endcapture %}
       {% endif %}
