@@ -51,15 +51,13 @@
 
     <!-- language toggle (jekyll-polyglot) -->
     {%- comment -%}
-      For posts, About, and the home page we link to the same path in the other
-      language (paired files share an explicit permalink). For category/tag/
-      archive pages — whose slugs differ between languages — we fall back to
-      the language home so the toggle never 404s.
-
-      We wrap href in `{% static_href %}` — polyglot's official escape hatch
-      that prevents `relativize_urls` from rewriting the URL to the active
-      language's prefix. Without it, the EN-target link on a /zh-CN/ page
-      gets rewritten back to /zh-CN/, creating a self-loop.
+      For posts, About, and the home page we link to the same path in the
+      other language (paired files share an explicit permalink). For
+      category/tag/archive pages, whose slugs differ between languages, we
+      fall back to the language home so the toggle never 404s. The href is
+      wrapped in polyglot's static_href block, which is the official escape
+      hatch that prevents relativize_urls from rewriting the URL to the
+      active language prefix and creating a self-loop.
     {%- endcomment -%}
     {%- assign smart_paths = 'home,post,page' | split: ',' -%}
     {%- assign use_smart = false -%}
