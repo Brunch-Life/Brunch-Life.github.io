@@ -6,7 +6,7 @@ order: 4
 
 ## Hi, I'm Yinuo Chen 👋
 
-I'm a doctoral student at the **Department of Electronic Engineering, Tsinghua University**, based in Beijing.
+I'm an **Engineering Doctorate (EngD)** student at the **Department of Electronic Engineering, Tsinghua University**, based in Beijing.
 
 My research sits at the intersection of:
 
