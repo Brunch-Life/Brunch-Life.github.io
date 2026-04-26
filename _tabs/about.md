@@ -13,13 +13,11 @@ My research sits at the intersection of:
 - **Embodied AI** — building agents that perceive, plan, and act in the physical world
 - **Reinforcement Learning** — scalable RL for robot learning, including policy optimization for diffusion / VLA backbones
 - **Vision-Language-Action models** — bridging foundation models with low-level control
-- **LLM Agents for research** — automating literature review, idea generation, and experiment loops
 
 This site is where I keep tutorials, paper notes, project write-ups, and the occasional engineering rabbit-hole that I want to remember six months from now.
 
 ## Currently working on
 
-- **[ARIS](https://github.com/Brunch-Life/Auto-claude-code-research-in-sleep)** — autonomous ML-research skills for LLM agents
 - **[RLinf](https://github.com/Brunch-Life/RLinf)** — RL infrastructure for embodied & agentic AI
 - Diffusion / flow-matching policies, π₀-style VLA fine-tuning, GELLO-based teleop pipelines
 
