@@ -56,11 +56,10 @@
       archive pages — whose slugs differ between languages — we fall back to
       the language home so the toggle never 404s.
 
-      IMPORTANT: polyglot's relativize_urls step rewrites every relative href
-      on non-default-language pages by prepending the active-lang prefix. That
-      breaks any "go to English" link from the zh-CN side. We work around it by
-      using ABSOLUTE URLs (with site.url) on the zh-CN side, which polyglot
-      leaves untouched.
+      We wrap href in `{% static_href %}` — polyglot's official escape hatch
+      that prevents `relativize_urls` from rewriting the URL to the active
+      language's prefix. Without it, the EN-target link on a /zh-CN/ page
+      gets rewritten back to /zh-CN/, creating a self-loop.
     {%- endcomment -%}
     {%- assign smart_paths = 'home,post,page' | split: ',' -%}
     {%- assign use_smart = false -%}
@@ -73,24 +72,17 @@
       {% else %}
         {% assign lang_target = '/zh-CN/' %}
       {% endif %}
-      <a href="{{ lang_target }}" class="btn btn-link nav-link lang-toggle" aria-label="切换到中文" title="中文">
+      <a {% static_href %}href="{{ lang_target }}"{% endstatic_href %} class="btn btn-link nav-link lang-toggle" aria-label="切换到中文" title="中文">
         <span style="font-weight:600;font-size:0.9rem;">中</span>
       </a>
     {% else %}
-      {%- comment -%}
-        On the zh-CN side, page.url already includes the "/zh-CN" prefix
-        (polyglot rewrites it during build). Strip the prefix to get the
-        canonical EN path, then prepend site.url to get an absolute URL
-        that polyglot's relativize_urls step won't touch.
-      {%- endcomment -%}
       {% if use_smart %}
-        {% capture stripped %}{{ page.url | remove_first: '/zh-CN' }}{% endcapture %}
-        {% if stripped == '' %}{% assign stripped = '/' %}{% endif %}
-        {% capture lang_target %}{{ site.url }}{{ stripped }}{% endcapture %}
+        {% capture lang_target %}{{ page.url | remove_first: '/zh-CN' }}{% endcapture %}
+        {% if lang_target == '' %}{% assign lang_target = '/' %}{% endif %}
       {% else %}
-        {% capture lang_target %}{{ site.url }}/{% endcapture %}
+        {% assign lang_target = '/' %}
       {% endif %}
-      <a href="{{ lang_target }}" class="btn btn-link nav-link lang-toggle" aria-label="Switch to English" title="English">
+      <a {% static_href %}href="{{ lang_target }}"{% endstatic_href %} class="btn btn-link nav-link lang-toggle" aria-label="Switch to English" title="English">
         <span style="font-weight:600;font-size:0.85rem;">EN</span>
       </a>
     {% endif %}
