@@ -50,14 +50,33 @@
     {% endunless %}
 
     <!-- language toggle (jekyll-polyglot) -->
+    {%- comment -%}
+      For posts, About, and the home page we link to the same path under the other
+      language (paired files share permalinks). For category/tag/archive pages —
+      whose URL slugs differ between languages — we fall back to the language
+      home so the toggle never 404s.
+    {%- endcomment -%}
+    {%- assign smart_paths = 'home,post,page' | split: ',' -%}
+    {%- assign use_smart = false -%}
+    {%- if smart_paths contains page.layout -%}
+      {%- assign use_smart = true -%}
+    {%- endif -%}
     {% if site.active_lang == site.default_lang %}
-      {% capture lang_target %}/zh-CN{{ page.url }}{% endcapture %}
+      {% if use_smart %}
+        {% capture lang_target %}/zh-CN{{ page.url }}{% endcapture %}
+      {% else %}
+        {% assign lang_target = '/zh-CN/' %}
+      {% endif %}
       <a href="{{ lang_target }}" class="btn btn-link nav-link lang-toggle" aria-label="切换到中文" title="中文">
         <span style="font-weight:600;font-size:0.9rem;">中</span>
       </a>
     {% else %}
-      {% capture lang_target %}{{ page.url | remove_first: '/zh-CN' }}{% endcapture %}
-      {% if lang_target == '' %}{% assign lang_target = '/' %}{% endif %}
+      {% if use_smart %}
+        {% capture lang_target %}{{ page.url | remove_first: '/zh-CN' }}{% endcapture %}
+        {% if lang_target == '' %}{% assign lang_target = '/' %}{% endif %}
+      {% else %}
+        {% assign lang_target = '/' %}
+      {% endif %}
       <a href="{{ lang_target }}" class="btn btn-link nav-link lang-toggle" aria-label="Switch to English" title="English">
         <span style="font-weight:600;font-size:0.85rem;">EN</span>
       </a>
