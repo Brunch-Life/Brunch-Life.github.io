@@ -1,6 +1,6 @@
 ---
 title: "Writing posts on this blog — math, code, callouts, images"
-date: 2026-04-26 11:00:00 +0800
+date: 2026-04-26 09:30:00 +0800
 categories: [Meta, Tutorials]
 tags: [jekyll, chirpy, markdown, latex]
 math: true
